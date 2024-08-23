@@ -1,23 +1,20 @@
-import logo from './logo.svg';
-import './App.css';
+// src/App.js
+
+import React, { useState } from "react";
+import "./App.css";
+// import FetchData from "./FetchData";
+// import PostData from "./PostData";
+import ManageData from "./ManageData";
 
 function App() {
+  const [fetchData, setFetchData] = useState(null);
+
   return (
-    <div className="App">
-      <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-        <p>
-          Edit <code>src/App.js</code> and save to reload.
-        </p>
-        <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Learn React
-        </a>
-      </header>
+    <div className="container">
+      <h1>Flask + React App</h1>
+      {/* <PostData refreshData={fetchData} />
+      <FetchData setFetchDataRef={setFetchData} /> */}
+      <ManageData />
     </div>
   );
 }
