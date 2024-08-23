@@ -3,6 +3,22 @@
 import React, { useEffect, useState } from "react";
 import "./App.css";
 
+function getCookie(name) {
+  let cookieValue = null;
+  if (document.cookie && document.cookie !== "") {
+    const cookies = document.cookie.split(";");
+    for (let i = 0; i < cookies.length; i++) {
+      const cookie = cookies[i].trim();
+      if (cookie.substring(0, name.length + 1) === name + "=") {
+        cookieValue = decodeURIComponent(cookie.substring(name.length + 1));
+        break;
+      }
+    }
+  }
+  return cookieValue;
+}
+
+
 function ManageData() {
   const [data, setData] = useState([]);
   const [content, setContent] = useState("");
@@ -21,10 +37,11 @@ function ManageData() {
   };
 
   const handlePost = () => {
-    fetch("/api/data", {
+    fetch("http://127.0.0.1:5000/api/data", {
       method: "POST",
       headers: {
         "Content-Type": "application/json",
+        "X-CSRFToken": getCookie("csrftoken"), 
       },
       body: JSON.stringify({ content }),
     })
@@ -37,6 +54,21 @@ function ManageData() {
       });
   };
 
+  function getCookie(name) {
+    let cookieValue = null;
+    if (document.cookie && document.cookie !== "") {
+      const cookies = document.cookie.split(";");
+      for (let i = 0; i < cookies.length; i++) {
+        const cookie = cookies[i].trim();
+        if (cookie.substring(0, name.length + 1) === name + "=") {
+          cookieValue = decodeURIComponent(cookie.substring(name.length + 1));
+          break;
+        }
+      }
+    }
+    return cookieValue;
+  }
+
   const handleEdit = (id) => {
     const itemToEdit = data.find((item) => item.id === id);
     setEditItem(itemToEdit);
@@ -44,7 +76,7 @@ function ManageData() {
   };
 
   const submitEdit = () => {
-    fetch(`/api/data/${editItem.id}`, {
+    fetch(`http://127.0.0.1:5000/api/data/${editItem.id}`, {
       method: "PUT",
       headers: {
         "Content-Type": "application/json",
@@ -59,7 +91,7 @@ function ManageData() {
   };
 
   const handleDelete = (id) => {
-    fetch(`/api/data/${id}`, {
+    fetch(`http://127.0.0.1:5000/api/data/${id}`, {
       method: "DELETE",
     })
       .then((response) => response.json())
