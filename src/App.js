@@ -11,9 +11,7 @@ function App() {
 
   return (
     <div className="container">
-      <h1>Flask + React App</h1>
-      {/* <PostData refreshData={fetchData} />
-      <FetchData setFetchDataRef={setFetchData} /> */}
+      <h1>Django + React App</h1>
       <ManageData />
     </div>
   );
